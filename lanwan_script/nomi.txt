@@ -1,0 +1,31 @@
+/*nomi.txt
+ * Basi di dati e sistemi informativi 2
+ * Progetto Lan/Wan, A.A. 2004/2005
+ * Gruppo: g013
+ * Studente: Piero Dalle Pezze
+ * Matricola 486228-sin
+ * Contents: specifiche riguardo alla scelta dei nomi utilizzati nel progetto.
+ */
+
+group:	g013
+g_pwd:	T3MR
+
+user:	u79
+u_pwd:	x7p4n
+
+nomi foreign key:  
+     fk_tabella_referenceTab;
+     fk_tabella$referenceTab;  /*in derivazione*/
+
+nomi sequence:
+     seq_tabella
+
+nomi trigger:
+     tabella_[bef|aft]_[ins|upd|del]
+     tabella_inof_[ins|upd|del]        /*trigger instead of*/
+
+nomi viste:
+     V_TABELLA
+
+nomi tabelle di journal:
+     JTABELLA

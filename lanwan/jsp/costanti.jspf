@@ -1,0 +1,18 @@
+<%
+	String db  = "jdbc:oracle:oci8:@gengis";
+	String user= "u79";
+	String pass= "x7p4n";
+	
+	String course = "Corso di Basi di dati e sistemi informativi 2";
+	String dip = "Dipartimento di Matematica pura ed applicata";
+	String uni = "Universita' di Padova";
+	
+	String nomeapp = "Lan e Wan";
+	String studente = "Piero Dalle Pezze";
+	String mail = "pdallep@studenti.math.unipd.it";
+	
+	String sql;
+	String nome = "";
+	String oid = "";
+
+%>

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+   <title>Relazione del progetto Lan Wan del corso di Basi di dati e sistemi informativi 2</title>
+   <link rel=stylesheet type="text/css" href="../jsp/stile.css">
+   <meta NAME="Author" CONTENT="Piero Dalle Pezze">
+</head>
+
+<body bgcolor="#000066" text="white" link="lightblue" vlink="red" class="elegant">
+
+<p class="elegant"><a href="http://www.unipd.it">Università di Padova</a></p>
+<p class="elegant"><a href="http://www.math.unipd.it">Dipartimento di Informatica</a></p>
+<br/>
+<h2>Relazione del Progetto Lan Wan del corso di Basi di dati e sistemi informativi 2</h2>
+<br/>
+<p class="elegant">Gruppo: g013</p>
+<p class="elegant">Utente: u79</p>
+<p class="elegant">Studente: <a href="mailto:pdallep@studenti.math.unipd.it">Piero Dalle Pezze</a></p>
+<p class="elegant">Matricola: 486228-sin</p>
+<p class="elegant">Anno Accademico: 2004-2005</p>
+<p class="elegant">Programmi: <span class=SpellE>Oracle</span> 8.1.7 e JSP</p>
+<br/>
+<br/>
+<p class="elegant">Premessa: Per ogni singolo oggetto, è presente uno specifico commento. Visionare il codice sorgente.</p>
+<br/>
+<p class="menuTitle">Parte 1: SQL e PL/SQL</p>
+<br/>
+<p class="elegant">La folder lanwan_script contiene i seguenti files:</p>
+<ul>
+ <li class="elegant">all.sql:  comando automatizzato per l'invocazione dei successivi files. Consente di inserire in 
+     ambiente Oracle lo schema, i trigger, righe di tabelle, procedure, grant per l'utente u79, tre utenti con i 
+     rispettivi ruoli di amministratore, gestore e consultatore.</li>
+ <li class="elegant">table.sql:  contiene la definizione dello schema per l'utente g013, in particolare contiene anche 
+     i vincoli e gli indici, le tabelle di journal e le viste per la gestione dell'ereditarietà e per funzioni 
+     personalizzate.</li>
+ <li class="elegant">trigger.sql:  contiene i trigger di ogni tabella ed i trigger instead of per le viste che gestiscono
+     l'ereditarietà. Ogni trigger è di insert, update e delete dal momento che è necessario registrare l'inserimento, 
+     l'aggiornamento e la cancellazione nelle rispettive tabelle di journal. I trigger instead of gestiscono in modo 
+     appropriato questi eventi.</li>
+ <li class="elegant">insert.sql:  contiene un significativo (più di mille) numero di inserimenti per popolare le 
+     tabelle con dati significativi.</li>
+ <li class="elegant">utenti.sql:  >contiene gli script per la definizione dello schema UTENTI - RUOLI, i rispettivi 
+     trigger, journal e tre inserimenti in entrambe le tabelle.</li>
+ <li class="elegant">procedure.sql:  contiene una funzione che si occupa di inserire un nuovo apparato e ritornare 
+     l'identificativo di tale apparato all'invocazione di tale funzione.</li>
+ <li class="elegant">grant.sql:  contiene i permessi di select, update, insert, delete ed execute necessari all'utente 
+     u79 per visionare e/o modificare i dati delle tabelle.</li>
+ <li class="elegant">drop.sql:  contiene i comandi per la cancellazione dell'intero schema.</li>
+ <li class="elegant">drop_utenti.sql:  contiene i comandi per la rimozione dello schema UTENTI - RUOLI</li>
+ <li class="elegant">drop_all.sql:  comando automatizzato che invoca drop.sql e drop_utenti.sql.</li>
+ <li class="elegant">nomi.txt:  formalizzazione della scelta dei nomi utilizzati.</li>
+</ul>
+<br/>
+<br/>
+<p class="menuTitle">Parte 2: JSP</p>
+<br/>
+<p class="elegant">La folder lanwan contiene le pagine jsp necessarie per la visualizzazione mediante browser dello 
+schema e del suo contenuto. In particolare ci si connette al server Apache Tomcat 4.1 al listener Oracle mediante 
+l'utente u79 che deve per cui essere già creato e proprietario dei grant (file grant.sql). E' possibile modificare 
+mediante opportune form l'intero contenuto dello schema dell'utente g013 se si entra con il ruolo di amministratore, 
+una parte dello schema ossia quello tecnico se si accede come gestori, sola visualizzazione se si possiede il ruolo
+di consultatore. L'amministratore in più può creare, rimuovere o alterare nuovi utenti e ruoli. Nel menu (file index.jsp) 
+sono presenti delle funzionalità che comprendono le tre funzioni (B4, B5, B6) e ulteriori funzionalità aggiuntive tra cui 
+A1, la visualizzazione delle porte libere dei patch panel a disposizione, le informazioni dettagliate sulle stanze, la 
+collocazione degli armadi tecnologici in stanze/piani/edifici. La folder sql contiene script jsp di select, insert, 
+delete e update.</p>
+<br/>
+<br/>
+<p class="menuTitle">Parte 3: Funzioni</p>
+<ul>
+ <li><p class="elegant">Funzione B4: visualizza una tabella e permette di effettuare un filtro sul numero di porte. 
+In particolare se tale filtro non è inserito, nella tabella saranno visualizzate tutte le righe degli apparati attivi 
+con almeno una porta permutata. Nella tabella, infatti, ho aggiunto una colonna "N. Porte" che conta le porte permutate.
+Il filtro quindi agisce su questo valore dal momento che esegue nuovamente la select visualizzando le righe in cui 
+"N. Porte" risulta uguale al valore del filtro.</p></li>
+ <li><p class="elegant">Funzione B5: dal momento che non si possono utilizzare i javabeans nel progetto, e quindi per 
+ogni query si deve stabilire una connessione ad Oracle, sono stato costretto ad effettuare 2 inserimenti nella stessa 
+pagina jsp (file apparato_porta_salva2.jsp) e alla fine effettuare il commit per garantire il processo transazionale.
+Infatti, se effettuavo l'inserimento di una riga con la prima form (mediante un eventuale file apparato_porta_salva1.jsp),
+una volta eseguita la pagina, senza gli strumenti che permettono di mantenere una sessione di connessione aperta
+dall'inizio alla fine, tomcat chiude la connessione, e, dal momento che non e' stato effettuato un commit (perche' appunto
+la form deve essere transazionale) l'inserimento viene perso. In modo a mio avviso non molto elegante, ho per cui 
+effettuato una copia della prima form nella seconda mediante parametri nascosti e da questa seconda form tutti i 
+parametri necessari vengono inviati come request. Nel file apparato_porta_salva2.jsp si eseguono due inserimenti 
+separati. Il primo utilizza una funzione Oracle in quanto e' necessario restituire l'oid dell'apparato di rete creato, 
+mentre il secondo esegue un normale inserimento usufruendo dell'oid_apparato di ritorno dalla funzione. Infine, nel
+caso in cui la transazione non andasse a buon fine, nella gestione delle eccezioni e' eseguito il rollback.
+ </p></li>
+ <li><p class="elegant">Funzione B6: Visualizza due tabelle dove la prima puo' essere filtrata in base al responsabile
+di assistenza. La seconda tabella visualizza la linea o le linee con tempo guasto maggiore di tutte le altre linee di 
+interconnessione.</p></li>
+</ul>
+<br/>
+<br/>
+<br/>
+<p class="elegant">Per l'accesso all'applicazione web sono stati generati tre utenti di default (file utenti.sql):</p>
+<br/>
+<h3>Utenti di default</h3>
+<table width="25%" align="center" cellspacing="0" border="1">
+	<tr>    
+		<th width="20%">Username</th>
+		<th width="20%">Password</th>
+	</tr>
+        <tr>
+	        <td>admin</td>
+	        <td>admin</td>
+	</tr>
+        <tr>
+	        <td>gesto</td>
+	        <td>gesto</td>
+	</tr>
+        <tr>
+	        <td>consu</td>
+	        <td>consu</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+<p class="elegant">Data: 30/06/2005</p>
+
+<a href="../index.html" TARGET="a">Accedi all'Applicazione Web</a>
+
+</body>
+</html>

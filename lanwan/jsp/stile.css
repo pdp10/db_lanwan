@@ -1,0 +1,47 @@
+
+
+.title { 
+  color: white;
+  font-family: Georgia, Tahoma, Sans-serif;
+  font-style: normal;
+  font-size: 25pt;
+  font-weight: 100;
+ }
+
+.menuTitle { 
+  color: white;
+  font-family: Georgia, Verdana, Sans-serif;
+  font-style: normal;
+  font-size: 18pt;
+  font-weight: 100;
+ }
+
+.elegant { 
+  color: white;
+  font-family: Verdana, Sans-serif;
+  font-style: normal;
+  font-size: 10pt;
+  font-weight: 100;
+ }
+
+.alert { 
+  color: red;
+  font-family: Verdana, Sans-serif;
+  font-style: normal;
+  font-size: 11pt;
+  font-weight: 100;
+ }
+
+.hello { 
+  color: violet;
+  font-family: Verdana, Sans-serif;
+  font-style: normal;
+  font-size: 11pt;
+  font-weight: 100;
+ }
+
+h1,h2,h3,h4 {
+  text-align : center;
+  color: white;
+  font-family: Georgia, Verdana, Sans-serif;
+}
